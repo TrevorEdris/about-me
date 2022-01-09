@@ -19,5 +19,5 @@ func TestAbout_Get(t *testing.T) {
 	// Goquery is an excellent package to use for testing HTML markup
 	h1 := doc.Find("h1.title")
 	assert.Len(t, h1.Nodes, 1)
-	assert.Equal(t, "About", h1.Text())
+	assert.Equal(t, "About Me", h1.Text())
 }
