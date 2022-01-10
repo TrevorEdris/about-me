@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+cleanup() {
+    unset MAIL_HOSTNAME
+    unset MAIL_PORT
+    unset MAIL_USER
+    unset MAIL_PASSWORD
+    unset MAIL_FROM_ADDRESS
+    unset MAIL_TO_ADDRESS
+    echo "Unset all variables"
+}
+
+trap cleanup EXIT
+
+# TODO: Temporary solution until this is built inside a Docker container
+source 'secrets/config.env'
+export MAIL_HOSTNAME=${MAIL_HOSTNAME}
+export MAIL_PORT=${MAIL_PORT}
+export MAIL_USER=${MAIL_USER}
+export MAIL_PASSWORD=${MAIL_PASSWORD}
+export MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
+export MAIL_TO_ADDRESS=${MAIL_TO_ADDRESS}
+go run main.go
