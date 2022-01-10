@@ -19,6 +19,7 @@ require (
 	github.com/labstack/gommon v0.3.1
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871
+	gopkg.in/mail.v2 v2.3.1
 )
 
 require (
@@ -71,6 +72,7 @@ require (
 	golang.org/x/time v0.0.0-20201208040808-7e3f01d25324 // indirect
 	google.golang.org/appengine v1.6.1 // indirect
 	google.golang.org/protobuf v1.26.0 // indirect
+	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect

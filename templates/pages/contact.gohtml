@@ -2,8 +2,7 @@
     {{- if not (eq .HTMX.Request.Target "contact")}}
         <article class="message is-link">
             <div class="message-body">
-                <p>This is an example of a form with inline, server-side validation and HTMX-powered AJAX submissions without writing a single line of JavaScript.</p>
-                <p>Only the form below will update async upon submission.</p>
+                <p>Contact me if you are interested in collaborating on a project together, looking to hire me for a project, or for any other reason!</p>
             </div>
         </article>
     {{- end}}
@@ -18,13 +17,13 @@
                 <p>Thank you!</p>
             </div>
             <div class="message-body">
-                No email was actually sent but this entire operation was handled server-side and degrades without JavaScript enabled.
+                I will respond to your inquery as soon as I am able to.
             </div>
         </article>
     {{- else}}
         <form id="contact" method="post" hx-post="{{call .ToURL "contact.post"}}">
             <div class="field">
-                <label for="email" class="label">Email address</label>
+                <label for="email" class="label">Your Email address</label>
                 <div class="control">
                     <input id="email" name="email" type="email" class="input {{.Form.Submission.GetFieldStatusClass "Email"}}" value="{{.Form.Email}}">
                 </div>
