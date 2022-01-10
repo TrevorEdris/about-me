@@ -3,10 +3,10 @@ package routes
 import (
 	"net/http"
 
-	"github.com/mikestefanello/pagoda/config"
-	"github.com/mikestefanello/pagoda/controller"
-	"github.com/mikestefanello/pagoda/middleware"
-	"github.com/mikestefanello/pagoda/services"
+	"github.com/TrevorEdris/about-me/config"
+	"github.com/TrevorEdris/about-me/controller"
+	"github.com/TrevorEdris/about-me/middleware"
+	"github.com/TrevorEdris/about-me/services"
 
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"

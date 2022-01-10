@@ -3,7 +3,7 @@ package msg
 import (
 	"testing"
 
-	"github.com/mikestefanello/pagoda/tests"
+	"github.com/TrevorEdris/about-me/tests"
 
 	"github.com/go-playground/assert/v2"
 	"github.com/stretchr/testify/require"

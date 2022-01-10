@@ -3,7 +3,7 @@ package routes
 import (
 	"fmt"
 
-	"github.com/mikestefanello/pagoda/controller"
+	"github.com/TrevorEdris/about-me/controller"
 
 	"github.com/labstack/echo/v4"
 )

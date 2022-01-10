@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/mikestefanello/pagoda/context"
-	"github.com/mikestefanello/pagoda/middleware"
-	"github.com/mikestefanello/pagoda/services"
+	"github.com/TrevorEdris/about-me/context"
+	"github.com/TrevorEdris/about-me/middleware"
+	"github.com/TrevorEdris/about-me/services"
 
 	"github.com/eko/gocache/v2/marshaler"
 

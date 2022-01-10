@@ -8,11 +8,11 @@ import (
 	"os"
 	"testing"
 
-	"github.com/mikestefanello/pagoda/config"
-	"github.com/mikestefanello/pagoda/htmx"
-	"github.com/mikestefanello/pagoda/middleware"
-	"github.com/mikestefanello/pagoda/services"
-	"github.com/mikestefanello/pagoda/tests"
+	"github.com/TrevorEdris/about-me/config"
+	"github.com/TrevorEdris/about-me/htmx"
+	"github.com/TrevorEdris/about-me/middleware"
+	"github.com/TrevorEdris/about-me/services"
+	"github.com/TrevorEdris/about-me/tests"
 
 	"github.com/eko/gocache/v2/store"
 

@@ -7,8 +7,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/mikestefanello/pagoda/config"
-	"github.com/mikestefanello/pagoda/services"
+	"github.com/TrevorEdris/about-me/config"
+	"github.com/TrevorEdris/about-me/services"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/stretchr/testify/assert"

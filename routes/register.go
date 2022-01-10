@@ -3,10 +3,10 @@ package routes
 import (
 	"fmt"
 
-	"github.com/mikestefanello/pagoda/context"
-	"github.com/mikestefanello/pagoda/controller"
-	"github.com/mikestefanello/pagoda/ent"
-	"github.com/mikestefanello/pagoda/msg"
+	"github.com/TrevorEdris/about-me/context"
+	"github.com/TrevorEdris/about-me/controller"
+	"github.com/TrevorEdris/about-me/ent"
+	"github.com/TrevorEdris/about-me/msg"
 
 	"github.com/labstack/echo/v4"
 )

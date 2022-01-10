@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/mikestefanello/pagoda/tests"
+	"github.com/TrevorEdris/about-me/tests"
 
 	"github.com/labstack/echo/v4"
 

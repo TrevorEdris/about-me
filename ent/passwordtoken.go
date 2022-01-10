@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/mikestefanello/pagoda/ent/passwordtoken"
-	"github.com/mikestefanello/pagoda/ent/user"
+	"github.com/TrevorEdris/about-me/ent/passwordtoken"
+	"github.com/TrevorEdris/about-me/ent/user"
 )
 
 // PasswordToken is the model entity for the PasswordToken schema.
