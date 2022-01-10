@@ -21,3 +21,8 @@ func TestAbout_Get(t *testing.T) {
 	assert.Len(t, h1.Nodes, 1)
 	assert.Equal(t, "About Me", h1.Text())
 }
+
+func TestAbout_newImg_InvalidPath(t *testing.T) {
+	i := newImg("this-path-doesnt-exist.png", "Alt text")
+	assert.Equal(t, errImg, i)
+}

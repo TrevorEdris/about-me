@@ -1,7 +1,11 @@
 package routes
 
 import (
+	"encoding/base64"
+	"fmt"
 	"html/template"
+	"io/ioutil"
+	"net/http"
 
 	"github.com/mikestefanello/pagoda/controller"
 
@@ -9,20 +13,13 @@ import (
 )
 
 const (
-	// TODO: Figure out how to show image for each element
-	// <img src="static/Res_Amazon-Simple-Storage-Service_S3-Standard_48_Dark.png" /> --> 404 Not Found
-	awsServices = `The following is a list of the AWS services I use on a near-daily basis.
-<ul>
-<li>S3</li>
-<li>Batch</li>
-<li>CloudWatch</li>
-<li>DynamoDB</li>
-<li>RDS</li>
-<li>ElastiCache</li>
-</ul>
-<br>
-<br>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/150px-Amazon_Web_Services_Logo.svg.png" alt="AWS" />`
+	imgPathGopher      = "static/gopher.png"
+	imgPathRDS         = "static/Res_Amazon-Aurora_Amazon-RDS-Instance_48_Dark.png"
+	imgPathCloudWatch  = "static/Res_Amazon-CloudWatch_Alarm_48_Dark.png"
+	imgPathDynamoDB    = "static/Res_Amazon-DynamoDB_Table_48_Dark.png"
+	imgPathEC2         = "static/Res_Amazon-EC2_Instances_48_Dark.png"
+	imgPathElastiCache = "static/Res_Amazon-ElastiCache_ElastiCache-for-Redis_48_Dark.png"
+	imgPathS3          = "static/Res_Amazon-Simple-Storage-Service_S3-Standard_48_Dark.png"
 )
 
 type (
@@ -44,7 +41,44 @@ type (
 		Title string
 		Body  template.HTML
 	}
+
+	img struct {
+		Source         string
+		Alt            string
+		base64Encoding string
+		HTML           string
+	}
 )
+
+var (
+	errImg = img{
+		HTML: "<img src=\"\" alt=\"Error loading image\" />",
+	}
+)
+
+func newImg(source, alt string) img {
+	b, err := ioutil.ReadFile(source)
+	if err != nil {
+		return errImg
+	}
+
+	var b64 string
+	mimeType := http.DetectContentType(b)
+	switch mimeType {
+	case "image/jpeg":
+		b64 = "data:image/jpeg;base64,"
+	case "image/png":
+		b64 = "data:image/png;base64,"
+	}
+	b64 += base64.StdEncoding.EncodeToString(b)
+
+	return img{
+		Source:         source,
+		Alt:            alt,
+		base64Encoding: b64,
+		HTML:           fmt.Sprintf("<img src=\"%s\" alt=\"%s\" />", b64, alt),
+	}
+}
 
 func (c *About) Get(ctx echo.Context) error {
 	page := controller.NewPage(ctx)
@@ -55,6 +89,25 @@ func (c *About) Get(ctx echo.Context) error {
 	// This page will be not cached!
 	page.Cache.Enabled = false
 	page.Cache.Tags = []string{"page_about", "page:list"}
+
+	awsServices := fmt.Sprintf(`The following is a list of the AWS services I use on a near-daily basis.
+<ul>
+<li>%s S3</li>
+<li>%s Batch</li>
+<li>%s CloudWatch</li>
+<li>%s DynamoDB</li>
+<li>%s RDS</li>
+<li>%s ElastiCache</li>
+</ul>
+<br>
+<br>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/150px-Amazon_Web_Services_Logo.svg.png" alt="AWS" />`,
+		newImg(imgPathS3, "S3").HTML,
+		newImg(imgPathEC2, "Batch").HTML,
+		newImg(imgPathCloudWatch, "CloudWatch").HTML,
+		newImg(imgPathDynamoDB, "DynamoDB").HTML,
+		newImg(imgPathRDS, "RDS").HTML,
+		newImg(imgPathElastiCache, "ElastiCache").HTML)
 
 	// A simple example of how the Data field can contain anything you want to send to the templates
 	// even though you wouldn't normally send markup like this
