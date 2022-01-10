@@ -107,6 +107,7 @@ type (
 		User        string `env:"MAIL_USER,default=admin"`
 		Password    string `env:"MAIL_PASSWORD,default=admin"`
 		FromAddress string `env:"MAIL_FROM_ADDRESS,default=admin@localhost"`
+		ToAddress   string `env:"MAIL_TO_ADDRESS,default=trevor.edris@gmail.com"`
 	}
 )
 

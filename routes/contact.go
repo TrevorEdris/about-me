@@ -23,7 +23,7 @@ func (c *Contact) Get(ctx echo.Context) error {
 	page := controller.NewPage(ctx)
 	page.Layout = "main"
 	page.Name = "contact"
-	page.Title = "Contact us"
+	page.Title = "Contact Me"
 	page.Form = ContactForm{}
 
 	if form := ctx.Get(context.FormKey); form != nil {
@@ -47,7 +47,7 @@ func (c *Contact) Post(ctx echo.Context) error {
 	}
 
 	if !form.Submission.HasErrors() {
-		if err := c.Container.Mail.Send(ctx, form.Email, "Hello!"); err != nil {
+		if err := c.Container.Mail.Send(ctx, form.Email, form.Message); err != nil {
 			return c.Fail(ctx, err, "unable to send email")
 		}
 	}

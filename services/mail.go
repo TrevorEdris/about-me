@@ -1,11 +1,13 @@
 package services
 
 import (
+	"crypto/tls"
 	"fmt"
 
 	"github.com/mikestefanello/pagoda/config"
 
 	"github.com/labstack/echo/v4"
+	gomail "gopkg.in/mail.v2"
 )
 
 // MailClient provides a client for sending email
@@ -29,21 +31,33 @@ func NewMailClient(cfg *config.Config, templates *TemplateRenderer) (*MailClient
 }
 
 // Send sends an email to a given email address with a given body
-func (c *MailClient) Send(ctx echo.Context, to, body string) error {
+func (c *MailClient) Send(ctx echo.Context, from, body string) error {
 	if c.skipSend() {
-		ctx.Logger().Debugf("skipping email sent to: %s", to)
+		ctx.Logger().Debugf("skipping email sent from: %s", from)
 	}
 
-	// TODO: Finish based on your mail sender of choice
+	msg := gomail.NewMessage()
+	msg.SetHeader("From", c.config.Mail.FromAddress)
+	msg.SetHeader("To", c.config.Mail.ToAddress)
+	msg.SetHeader("Subject", "Contact Me - "+from)
+	msg.SetBody("text/plain", body)
+
+	dialer := gomail.NewDialer(c.config.Mail.Hostname, int(c.config.Mail.Port), c.config.Mail.ToAddress, c.config.Mail.Password)
+	dialer.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+
+	err := dialer.DialAndSend(msg)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
 // SendTemplate sends an email to a given email address using a template and data which is passed to the template
 // The template name should only include the filename without the extension or directory.
 // The funcmap will be automatically added to the template and the data will be passed in.
-func (c *MailClient) SendTemplate(ctx echo.Context, to, template string, data interface{}) error {
+func (c *MailClient) SendTemplate(ctx echo.Context, from, template string, data interface{}) error {
 	if c.skipSend() {
-		ctx.Logger().Debugf("skipping template email sent to: %s", to)
+		ctx.Logger().Debugf("skipping template email sent from: %s", from)
 	}
 
 	// Parse and execute template
@@ -60,11 +74,11 @@ func (c *MailClient) SendTemplate(ctx echo.Context, to, template string, data in
 		return err
 	}
 
-	// TODO: Finish based on your mail sender of choice
 	return nil
 }
 
 // skipSend determines if mail sending should be skipped
 func (c *MailClient) skipSend() bool {
-	return c.config.App.Environment != config.EnvProduction
+	//return c.config.App.Environment != config.EnvProduction
+	return false
 }
