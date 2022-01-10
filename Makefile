@@ -56,11 +56,6 @@ reset: ## Rebuild Docker containers to wipe all data
 	docker-compose down
 	make up
 
-.PHONY: run
-run: decrypt ## Run the application
-	clear
-	go run main.go
-
 .PHONY: deploy_local
 deploy_local: decrypt ## Deploy the application to the local environment (go run)
 	@deploy/local/deploy
