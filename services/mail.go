@@ -37,12 +37,12 @@ func (c *MailClient) Send(ctx echo.Context, from, body string) error {
 	}
 
 	msg := gomail.NewMessage()
-	msg.SetHeader("From", "trevoredris+aboutme@gmail.com")
-	msg.SetHeader("To", "trevoredris+aboutme@gmail.com")
+	msg.SetHeader("From", c.config.Mail.FromAddress)
+	msg.SetHeader("To", c.config.Mail.ToAddress)
 	msg.SetHeader("Subject", "Contact Me - "+from)
 	msg.SetBody("text/plain", body)
 
-	dialer := gomail.NewDialer("smtp.gmail.com", 587, "trevor.edris@gmail.com", "SMTP_PASSWORD_HERE")
+	dialer := gomail.NewDialer(c.config.Mail.Hostname, int(c.config.Mail.Port), c.config.Mail.ToAddress, c.config.Mail.Password)
 	dialer.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
 	err := dialer.DialAndSend(msg)
