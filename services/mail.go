@@ -31,18 +31,20 @@ func NewMailClient(cfg *config.Config, templates *TemplateRenderer) (*MailClient
 }
 
 // Send sends an email to a given email address with a given body
-func (c *MailClient) Send(ctx echo.Context, from, body string) error {
+func (c *MailClient) Send(ctx echo.Context, contactorEmailAddr, body string) error {
 	if c.skipSend() {
-		ctx.Logger().Debugf("skipping email sent from: %s", from)
+		ctx.Logger().Debugf("skipping email sent from: %s", contactorEmailAddr)
 	}
+
+	ctx.Logger().Debugf("Sending mail to %s from %s - Contactor %s", c.config.Mail.ToAddress, c.config.Mail.FromAddress, contactorEmailAddr)
 
 	msg := gomail.NewMessage()
 	msg.SetHeader("From", c.config.Mail.FromAddress)
 	msg.SetHeader("To", c.config.Mail.ToAddress)
-	msg.SetHeader("Subject", "Contact Me - "+from)
+	msg.SetHeader("Subject", "Contact Me - "+contactorEmailAddr)
 	msg.SetBody("text/plain", body)
 
-	dialer := gomail.NewDialer(c.config.Mail.Hostname, int(c.config.Mail.Port), c.config.Mail.ToAddress, c.config.Mail.Password)
+	dialer := gomail.NewDialer(c.config.Mail.Hostname, int(c.config.Mail.Port), c.config.Mail.User, c.config.Mail.Password)
 	dialer.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
 	err := dialer.DialAndSend(msg)
