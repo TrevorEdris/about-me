@@ -3,7 +3,7 @@ clear_files=$(shell blackbox_list_files)
 encrypt_files=$(patsubst %,%.gpg,${clear_files})
 
 .PHONY: all
-all: reset run
+all: reset deploy_local
 
 .PHONY: help
 help: ## List of available commands
@@ -55,11 +55,6 @@ up: ## Start the Docker containers
 reset: ## Rebuild Docker containers to wipe all data
 	docker-compose down
 	make up
-
-.PHONY: run
-run: decrypt ## Run the application
-	clear
-	go run main.go
 
 .PHONY: deploy_local
 deploy_local: decrypt ## Deploy the application to the local environment (go run)

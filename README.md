@@ -23,7 +23,7 @@ Planned future work
 
 `make deploy_local`
 
-This command will deploy the project to the local environment, using `go run main.go` under the hood.
+This command will deploy the project to the local environment, using `go run cmd/api/main.go` under the hood.
 The first step will be to decrypt the `secrets/config.env.gpg` file, which can only be done if your GPG
 key is listed in `.blackbox/blackbox-admins.txt` and has been used to encrypt the `.gpg` file itself.
 
