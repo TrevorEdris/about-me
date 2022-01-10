@@ -8,6 +8,7 @@ all: reset run
 .PHONY: help
 help: ## List of available commands
 	@echo "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\033[36m\1\\033[m:\2/' | column -c2 -t -s :)"
+
 .PHONY: clear
 clear: ${clear_files}
 
@@ -59,6 +60,18 @@ reset: ## Rebuild Docker containers to wipe all data
 run: decrypt ## Run the application
 	clear
 	go run main.go
+
+.PHONY: deploy_local
+deploy_local: decrypt ## Deploy the application to the local environment (go run)
+	@deploy/local/deploy
+
+.PHONY: deploy_kube
+deploy_kube: decrypt ## Deploy the application to Kubernetes
+	@deploy/kube/deploy
+
+.PHONY: deploy_lambda
+deploy_lambda: decrypt ## Deploy the application to AWS Lambda
+	@deploy/lambda/deploy
 
 .PHONY: test
 test: ## Run all tests
