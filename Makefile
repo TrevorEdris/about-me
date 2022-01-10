@@ -3,7 +3,7 @@ clear_files=$(shell blackbox_list_files)
 encrypt_files=$(patsubst %,%.gpg,${clear_files})
 
 .PHONY: all
-all: reset run
+all: reset deploy_local
 
 .PHONY: help
 help: ## List of available commands
