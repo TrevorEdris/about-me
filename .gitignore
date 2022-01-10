@@ -3,3 +3,4 @@
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg
 /secrets/config.env
+/tmp
