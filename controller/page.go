@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/mikestefanello/pagoda/context"
-	"github.com/mikestefanello/pagoda/ent"
-	"github.com/mikestefanello/pagoda/htmx"
-	"github.com/mikestefanello/pagoda/msg"
+	"github.com/TrevorEdris/about-me/context"
+	"github.com/TrevorEdris/about-me/ent"
+	"github.com/TrevorEdris/about-me/htmx"
+	"github.com/TrevorEdris/about-me/msg"
 
 	echomw "github.com/labstack/echo/v4/middleware"
 

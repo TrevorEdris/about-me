@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/mikestefanello/pagoda/controller"
+	"github.com/TrevorEdris/about-me/controller"
 
 	"github.com/labstack/echo/v4"
 )

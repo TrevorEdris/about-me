@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mikestefanello/pagoda/tests"
+	"github.com/TrevorEdris/about-me/tests"
 
 	"github.com/stretchr/testify/require"
 

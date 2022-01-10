@@ -3,10 +3,10 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/mikestefanello/pagoda/context"
-	"github.com/mikestefanello/pagoda/ent"
-	"github.com/mikestefanello/pagoda/msg"
-	"github.com/mikestefanello/pagoda/services"
+	"github.com/TrevorEdris/about-me/context"
+	"github.com/TrevorEdris/about-me/ent"
+	"github.com/TrevorEdris/about-me/msg"
+	"github.com/TrevorEdris/about-me/services"
 
 	"github.com/labstack/echo/v4"
 )

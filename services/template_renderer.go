@@ -10,8 +10,8 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/mikestefanello/pagoda/config"
-	"github.com/mikestefanello/pagoda/funcmap"
+	"github.com/TrevorEdris/about-me/config"
+	"github.com/TrevorEdris/about-me/funcmap"
 )
 
 // TemplateRenderer provides a flexible and easy to use method of rendering simple templates or complex sets of

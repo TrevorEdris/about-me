@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"fmt"
 
-	"github.com/mikestefanello/pagoda/config"
+	"github.com/TrevorEdris/about-me/config"
 
 	"github.com/labstack/echo/v4"
 	gomail "gopkg.in/mail.v2"

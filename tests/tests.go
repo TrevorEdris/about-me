@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mikestefanello/pagoda/ent"
+	"github.com/TrevorEdris/about-me/ent"
 
 	"github.com/go-playground/assert/v2"
 	"github.com/stretchr/testify/require"

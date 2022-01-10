@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/mikestefanello/pagoda/config"
+	"github.com/TrevorEdris/about-me/config"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

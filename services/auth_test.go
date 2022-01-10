@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mikestefanello/pagoda/ent/passwordtoken"
-	"github.com/mikestefanello/pagoda/ent/user"
+	"github.com/TrevorEdris/about-me/ent/passwordtoken"
+	"github.com/TrevorEdris/about-me/ent/user"
 
 	"github.com/stretchr/testify/require"
 

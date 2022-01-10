@@ -1,4 +1,4 @@
-module github.com/mikestefanello/pagoda
+module github.com/TrevorEdris/about-me
 
 go 1.17
 
