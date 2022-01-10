@@ -1,52 +1,65 @@
-# Connect to the primary database
+# Blackbox files that need to be decrypted.
+clear_files=$(shell blackbox_list_files)
+encrypt_files=$(patsubst %,%.gpg,${clear_files})
+
+.PHONY: all
+all: reset run
+
+.PHONY: help
+help: ## List of available commands
+	@echo "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\033[36m\1\\033[m:\2/' | column -c2 -t -s :)"
+.PHONY: clear
+clear: ${clear_files}
+
+${clear_files}: ${encrypt_files}
+	@blackbox_decrypt_all_files
+
+.PHONY: decrypt
+decrypt: ${clear_files} ## Decrypt all .gpg files registered in .blackbox/blackbox-files.txt
+
+.PHONY: encrypt
+encrypt: ${encrypt_files} ## Encrypt all files registered in .blackbox/blackbox-files.txt
+	blackbox_edit_end $^
+
 .PHONY: db
-db:
+db: ## Connect to the primary database
 	 psql postgresql://admin:admin@localhost:5432/app
 
-# Connect to the test database
 .PHONY: db-test
-db-test:
+db-test: ## Connect to the test database
 	 psql postgresql://admin:admin@localhost:5432/app_test
 
-# Connect to the cache
 .PHONY: cache
-cache:
+cache: ## Connect to the cache
 	 redis-cli
 
-# Install Ent code-generation module
 .PHONY: ent-install
-ent-install:
+ent-install: ## Install Ent code-generation module
 	go get -d entgo.io/ent/cmd/ent
 
-# Generate Ent code
 .PHONY: ent-gen
-ent-gen:
+ent-gen: ## Generate Ent code
 	go generate ./ent
 
-# Create a new Ent entity
 .PHONY: ent-new
-ent-new:
+ent-new: ## Create a new Ent entity
 	go run entgo.io/ent/cmd/ent init $(name)
 
-# Start the Docker containers
 .PHONY: up
-up:
+up: ## Start the Docker containers
 	docker-compose up -d
 	sleep 3
 
-# Rebuild Docker containers to wipe all data
 .PHONY: reset
-reset:
+reset: ## Rebuild Docker containers to wipe all data
 	docker-compose down
 	make up
 
-# Run the application
 .PHONY: run
-run:
+run: decrypt ## Run the application
 	clear
 	go run main.go
 
-# Run all tests
 .PHONY: test
-test:
+test: ## Run all tests
 	go test -p 1 ./...
