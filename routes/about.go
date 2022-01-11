@@ -56,10 +56,6 @@ var (
 	}
 )
 
-func unusedFunc() {
-	thisIsAnUnusedVariableInAnUnusedFunc := ""
-}
-
 func newImg(source, alt string) img {
 	b, err := ioutil.ReadFile(source)
 	if err != nil {
