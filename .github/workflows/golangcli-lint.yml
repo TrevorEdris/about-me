@@ -7,9 +7,10 @@ on:
       - main
   pull_request:
 permissions:
-  contents: read
+  contents: write
   # Optional: allow read access to pull request. Use with `only-new-issues` option.
-  pull-requests: read
+  pull-requests: write
+  actions: write
 jobs:
   golangci:
     name: lint
