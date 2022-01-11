@@ -22,6 +22,19 @@ decrypt: ${clear_files} ## Decrypt all .gpg files registered in .blackbox/blackb
 encrypt: ${encrypt_files} ## Encrypt all files registered in .blackbox/blackbox-files.txt
 	blackbox_edit_end $^
 
+.PHONY: dev
+dev:
+	docker-compose -f docker-compose.dev.yml up -d
+	make -s dev-logs
+
+.PHONY: dev-down
+dev_down:
+	docker-compose -f docker-compose.dev.yml down
+
+.PHONY: dev-logs
+dev-logs:
+	docker-compose -f docker-compose.dev.yml logs -f api
+
 .PHONY: db
 db: ## Connect to the primary database
 	 psql postgresql://admin:admin@localhost:5432/app

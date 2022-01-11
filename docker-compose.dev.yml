@@ -1,0 +1,64 @@
+version: '3'
+services:
+  api:
+    build:
+      context: container
+      dockerfile: dev.Dockerfile
+    container_name: api
+    environment:
+      - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
+      - CACHE_HOSTNAME=cache
+      - DB_HOSTNAME=db
+      - MAIL_HOSTNAME=mail
+      - MAIL_PORT=25
+    volumes:
+      - ./:/app
+      - type: bind
+        source: /run/host-services/ssh-auth.sock
+        target: /run/host-services/ssh-auth.sock
+    restart: unless-stopped
+    ports:
+      - '8000:8000'
+    links:
+      - cache
+      - db
+      - mail
+    networks:
+      about-me-network:
+        ipv4_address: 172.10.0.2
+  
+  cache:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    networks:
+      about-me-network:
+        ipv4_address: 172.10.0.3
+
+  db:
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=app
+    networks:
+      about-me-network:
+        ipv4_address: 172.10.0.4
+  
+  mail:
+    image: maildev/maildev
+    ports:
+      - '1080:80'
+    networks:
+      about-me-network:
+        ipv4_address: 172.10.0.5
+
+networks:
+  about-me-network:
+    name: 'about-me-network'
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.10.0.0/16

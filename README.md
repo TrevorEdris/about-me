@@ -9,7 +9,9 @@
 
 ## Developing
 
-Planned future work
+Use `make dev` to bring up the application with "Live reloading" enabled (via [cosmtrek/air](https://github.com/cosmtrek/air)). This will detect changes to files and automatically restart the application.
+
+Included in the `docker-compose.dev.yml` is an SMTP server (via [maildev](https://github.com/maildev/maildev)) that allows for the SMTP functionality to be tested locally. To view the mail server, visit `http://localhost1080` in a browser.
 
 ## Deploying
 
