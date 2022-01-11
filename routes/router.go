@@ -87,9 +87,6 @@ func userRoutes(c *services.Container, g *echo.Group, ctr controller.Controller)
 	g.GET("/email/verify/:token", verifyEmail.Get).Name = "verify_email"
 
 	noAuth := g.Group("/user", middleware.RequireNoAuthentication())
-	login := Login{Controller: ctr}
-	noAuth.GET("/login", login.Get).Name = "login"
-	noAuth.POST("/login", login.Post).Name = "login.post"
 
 	forgot := ForgotPassword{Controller: ctr}
 	noAuth.GET("/password", forgot.Get).Name = "forgot_password"

@@ -41,7 +41,7 @@ dev: ## Run the live-reloading application
 	make -s dev-logs
 
 .PHONY: dev-down
-dev_down: ## Bring down the live-reloading application
+dev-down: ## Bring down the live-reloading application
 	docker-compose -f docker-compose.dev.yml down
 
 .PHONY: dev-logs
