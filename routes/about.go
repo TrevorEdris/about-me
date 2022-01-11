@@ -20,8 +20,6 @@ const (
 	imgPathEC2         = "static/Res_Amazon-EC2_Instances_48_Dark.png"
 	imgPathElastiCache = "static/Res_Amazon-ElastiCache_ElastiCache-for-Redis_48_Dark.png"
 	imgPathS3          = "static/Res_Amazon-Simple-Storage-Service_S3-Standard_48_Dark.png"
-
-	LintShouldCatchThis = "I'm an unused variable and also exported"
 )
 
 type (
@@ -57,10 +55,6 @@ var (
 		HTML: "<img src=\"\" alt=\"Error loading image\" />",
 	}
 )
-
-func unusedFunc() {
-	thisIsAnUnusedVariableInAnUnusedFunc := ""
-}
 
 func newImg(source, alt string) img {
 	b, err := ioutil.ReadFile(source)
