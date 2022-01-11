@@ -25,15 +25,15 @@ encrypt: ${encrypt_files} ## Encrypt all files registered in .blackbox/blackbox-
 .PHONY: dev
 dev:
 	docker-compose -f docker-compose.dev.yml up -d
-	make -s logs
+	make -s dev-logs
 
-.PHONY: dev_down
+.PHONY: dev-down
 dev_down:
 	docker-compose -f docker-compose.dev.yml down
 
-.PHONY: logs
-logs:
-	docker-compose -f docker-compose.dev.yml logs -f api cache db mail
+.PHONY: dev-logs
+dev-logs:
+	docker-compose -f docker-compose.dev.yml logs -f api
 
 .PHONY: db
 db: ## Connect to the primary database
