@@ -130,7 +130,7 @@ func (c *About) Get(ctx echo.Context) error {
 		TechnologyTabs: []AboutTab{
 			{
 				Title: "Go",
-				Body:  template.HTML(`The <a href="https://go.dev/">"Go"</a> programming language. I use this language daily in my career and it is my "Go"-to choice of languages for side projects.<br><br><img src="https://gopher.gallery/images/gophers/frontpage.png" alt="GOpher" /><br><a href="https://gopher.gallery/gophers/frontpage/">Image credit to Renee French, CCA 3.0</a>`),
+				Body:  template.HTML(fmt.Sprintf(`The <a href="https://go.dev/">"Go"</a> programming language. I use this language daily in my career and it is my "Go"-to choice of languages for side projects.<br><br>%s`, newImg(imgPathGopher, "Gopher").HTML)),
 			},
 			{
 				Title: "AWS",
