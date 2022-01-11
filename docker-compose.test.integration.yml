@@ -1,0 +1,33 @@
+version: '3'
+services:
+  cache:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+
+  db:
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=app
+
+  mail:
+    image: maildev/maildev
+    ports:
+      - '1080:80'
+
+  test:
+    image: tedris/about-me-integration:latest
+    container_name: test
+    depends_on:
+      - cache
+      - db
+      - mail
+    environment:
+      - CACHE_HOSTNAME=cache
+      - DB_HOSTNAME=db
+      - MAIL_HOSTNAME=mail
+      - MAIL_PORT=25

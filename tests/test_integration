@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+cleanup() {
+    docker-compose -f docker-compose.test.integration.yml down
+}
+
+trap cleanup EXIT
+
+docker-compose -f docker-compose.test.integration.yml up --exit-code-from test
