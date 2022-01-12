@@ -35,7 +35,6 @@
                             {{- if .IsAuth}}
                                 <li>{{link (call .ToURL "logout") "Logout" .Path}}</li>
                             {{- else}}
-                                <li>{{link (call .ToURL "register") "Register" .Path}}</li>
                                 <li>{{link (call .ToURL "forgot_password") "Forgot password" .Path}}</li>
                             {{- end}}
                         </ul>
