@@ -65,14 +65,11 @@ func BuildRouter(c *services.Container) {
 }
 
 func navRoutes(c *services.Container, g *echo.Group, ctr controller.Controller) {
-	home := Home{Controller: ctr}
-	g.GET("/", home.Get).Name = "home"
+	about := About{Controller: ctr}
+	g.GET("/", about.Get).Name = "about"
 
 	search := Search{Controller: ctr}
 	g.GET("/search", search.Get).Name = "search"
-
-	about := About{Controller: ctr}
-	g.GET("/about", about.Get).Name = "about"
 
 	contact := Contact{Controller: ctr}
 	g.GET("/contact", contact.Get).Name = "contact"
