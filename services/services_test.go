@@ -36,11 +36,12 @@ func TestMain(m *testing.M) {
 	ctx, _ = tests.NewContext(c.Web, "/")
 	tests.InitSession(ctx)
 
-	// Create a test user
-	var err error
-	if usr, err = tests.CreateUser(c.ORM); err != nil {
-		panic(err)
-	}
+	// TODO: Maybe re-enable at a later date
+	// // Create a test user
+	// var err error
+	// if usr, err = tests.CreateUser(c.ORM); err != nil {
+	// 	panic(err)
+	// }
 
 	// Run tests
 	exitVal := m.Run()

@@ -10,7 +10,6 @@ import (
 	"github.com/TrevorEdris/about-me/config"
 	"github.com/TrevorEdris/about-me/ent"
 	"github.com/TrevorEdris/about-me/services"
-	"github.com/TrevorEdris/about-me/tests"
 )
 
 var (
@@ -30,11 +29,12 @@ func TestMain(m *testing.M) {
 		}
 	}()
 
-	// Create a user
-	var err error
-	if usr, err = tests.CreateUser(c.ORM); err != nil {
-		panic(err)
-	}
+	// TODO: Maybe re-enable at a later date
+	// // Create a user
+	// var err error
+	// if usr, err = tests.CreateUser(c.ORM); err != nil {
+	// 	panic(err)
+	// }
 
 	// Run tests
 	exitVal := m.Run()

@@ -20,8 +20,8 @@ services:
     ports:
       - '8000:8000'
     links:
-      - cache
-      - db
+      # - cache
+      # - db
       - mail
     networks:
       about-me-network:
@@ -36,17 +36,17 @@ services:
   #     about-me-network:
   #       ipv4_address: 172.10.0.3
 
-  db:
-    image: postgres:alpine
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=app
-    networks:
-      about-me-network:
-        ipv4_address: 172.10.0.4
+  # db:
+  #   image: postgres:alpine
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     - POSTGRES_USER=admin
+  #     - POSTGRES_PASSWORD=admin
+  #     - POSTGRES_DB=app
+  #   networks:
+  #     about-me-network:
+  #       ipv4_address: 172.10.0.4
   
   mail:
     image: maildev/maildev
