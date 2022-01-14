@@ -27,13 +27,14 @@ services:
       about-me-network:
         ipv4_address: 172.10.0.2
   
-  cache:
-    image: "redis:alpine"
-    ports:
-      - "6379:6379"
-    networks:
-      about-me-network:
-        ipv4_address: 172.10.0.3
+  # TODO: Maybe re-enable at a later date
+  # cache:
+  #   image: "redis:alpine"
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     about-me-network:
+  #       ipv4_address: 172.10.0.3
 
   db:
     image: postgres:alpine

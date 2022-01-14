@@ -1,9 +1,10 @@
 version: '3'
 services:
-  cache:
-    image: "redis:alpine"
-    ports:
-      - "6379:6379"
+  # TODO: Maybe re-enable at a later date
+  # cache:
+  #   image: "redis:alpine"
+  #   ports:
+  #     - "6379:6379"
 
   db:
     image: postgres:alpine
@@ -23,7 +24,7 @@ services:
     image: tedris/about-me-integration:latest
     container_name: test
     depends_on:
-      - cache
+      #- cache
       - db
       - mail
     environment:
