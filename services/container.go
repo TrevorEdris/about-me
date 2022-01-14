@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/eko/gocache/v2/cache"
-	"github.com/go-redis/redis/v8"
 	_ "github.com/jackc/pgx/v4/stdlib"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
@@ -31,7 +30,7 @@ type Container struct {
 	Cache *cache.Cache
 
 	// cacheClient stores the client to the underlying cache service
-	cacheClient *redis.Client
+	// cacheClient *redis.Client
 
 	// Database stores the connection to the database
 	Database *sql.DB
