@@ -2,6 +2,7 @@ SHELL ?= /bin/bash
 export IMAGEORG ?= tedris
 export IMAGE ?= about-me
 export VERSION ?= $(shell printf "`./tools/version`${VERSION_SUFFIX}")
+export GIT_HASH =$(shell git rev-parse --short HEAD)
 
 # Blackbox files that need to be decrypted.
 clear_files=$(shell blackbox_list_files)
@@ -107,7 +108,7 @@ deploy_lambda: publish ## Deploy the application to AWS Lambda
 # -----------------------------[ Other ] ----------------------------
 
 .PHONY: copy-binary
-copy-binary: build
+copy-binary: build ## Create a temporary container based on the "-build" image and copy the binary out of the container
 	@docker create --name about-me-${GIT_HASH} tedris/about-me-build:${VERSION}
 	@docker cp about-me-${GIT_HASH}:/go/src/github.com/TrevorEdris/about-me/api ./api
 	@docker rm about-me-${GIT_HASH}
