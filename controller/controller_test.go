@@ -4,7 +4,6 @@
 package controller
 
 import (
-	"context"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -13,13 +12,8 @@ import (
 
 	"github.com/TrevorEdris/about-me/config"
 	"github.com/TrevorEdris/about-me/htmx"
-	"github.com/TrevorEdris/about-me/middleware"
 	"github.com/TrevorEdris/about-me/services"
 	"github.com/TrevorEdris/about-me/tests"
-
-	"github.com/eko/gocache/v2/store"
-
-	"github.com/eko/gocache/v2/marshaler"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -66,7 +60,6 @@ func TestController_RenderPage(t *testing.T) {
 		p := NewPage(ctx)
 		p.Name = "home"
 		p.Layout = "main"
-		p.Cache.Enabled = false
 		p.Headers["A"] = "b"
 		p.Headers["C"] = "d"
 		p.StatusCode = http.StatusCreated
@@ -146,35 +139,36 @@ func TestController_RenderPage(t *testing.T) {
 		assert.Empty(t, expectedTemplates)
 	})
 
-	t.Run("page cache", func(t *testing.T) {
-		ctx, rec, ctr, p := setup()
-		p.Cache.Enabled = true
-		p.Cache.Tags = []string{"tag1"}
-		err := ctr.RenderPage(ctx, p)
-		require.NoError(t, err)
+	// TODO: Maybe re-enable at a later date
+	// t.Run("page cache", func(t *testing.T) {
+	// 	ctx, rec, ctr, p := setup()
+	// 	p.Cache.Enabled = true
+	// 	p.Cache.Tags = []string{"tag1"}
+	// 	err := ctr.RenderPage(ctx, p)
+	// 	require.NoError(t, err)
 
-		// Fetch from the cache
-		res, err := marshaler.New(c.Cache).
-			Get(context.Background(), p.URL, new(middleware.CachedPage))
-		require.NoError(t, err)
+	// 	// Fetch from the cache
+	// 	res, err := marshaler.New(c.Cache).
+	// 		Get(context.Background(), p.URL, new(middleware.CachedPage))
+	// 	require.NoError(t, err)
 
-		// Compare the cached page
-		cp, ok := res.(*middleware.CachedPage)
-		require.True(t, ok)
-		assert.Equal(t, p.URL, cp.URL)
-		assert.Equal(t, p.Headers, cp.Headers)
-		assert.Equal(t, p.StatusCode, cp.StatusCode)
-		assert.Equal(t, rec.Body.Bytes(), cp.HTML)
+	// 	// Compare the cached page
+	// 	cp, ok := res.(*middleware.CachedPage)
+	// 	require.True(t, ok)
+	// 	assert.Equal(t, p.URL, cp.URL)
+	// 	assert.Equal(t, p.Headers, cp.Headers)
+	// 	assert.Equal(t, p.StatusCode, cp.StatusCode)
+	// 	assert.Equal(t, rec.Body.Bytes(), cp.HTML)
 
-		// Clear the tag
-		err = c.Cache.Invalidate(context.Background(), store.InvalidateOptions{
-			Tags: []string{p.Cache.Tags[0]},
-		})
-		require.NoError(t, err)
+	// 	// Clear the tag
+	// 	err = c.Cache.Invalidate(context.Background(), store.InvalidateOptions{
+	// 		Tags: []string{p.Cache.Tags[0]},
+	// 	})
+	// 	require.NoError(t, err)
 
-		// Refetch from the cache and expect no results
-		_, err = marshaler.New(c.Cache).
-			Get(context.Background(), p.URL, new(middleware.CachedPage))
-		assert.Error(t, err)
-	})
+	// 	// Refetch from the cache and expect no results
+	// 	_, err = marshaler.New(c.Cache).
+	// 		Get(context.Background(), p.URL, new(middleware.CachedPage))
+	// 	assert.Error(t, err)
+	// })
 }

@@ -106,6 +106,12 @@ deploy_lambda: publish ## Deploy the application to AWS Lambda
 
 # -----------------------------[ Other ] ----------------------------
 
+.PHONY: copy-binary
+copy-binary: build
+	@docker create --name about-me-${GIT_HASH} tedris/about-me-build:${VERSION}
+	@docker cp about-me-${GIT_HASH}:/go/src/github.com/TrevorEdris/about-me/api ./api
+	@docker rm about-me-${GIT_HASH}
+
 .PHONY: db
 db: ## Connect to the primary database
 	 psql postgresql://admin:admin@localhost:5432/app

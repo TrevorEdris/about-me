@@ -46,7 +46,8 @@ func BuildRouter(c *services.Container) {
 		}),
 		session.Middleware(sessions.NewCookieStore([]byte(c.Config.App.EncryptionKey))),
 		middleware.LoadAuthenticatedUser(c.Auth),
-		middleware.ServeCachedPage(c.Cache),
+		// TODO: Maybe re-enable at a later date
+		//middleware.ServeCachedPage(c.Cache),
 		echomw.CSRFWithConfig(echomw.CSRFConfig{
 			TokenLookup: "form:csrf",
 		}),

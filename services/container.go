@@ -8,7 +8,6 @@ import (
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
 	"github.com/eko/gocache/v2/cache"
-	"github.com/eko/gocache/v2/store"
 	"github.com/go-redis/redis/v8"
 	_ "github.com/jackc/pgx/v4/stdlib"
 	"github.com/labstack/echo/v4"
@@ -114,15 +113,16 @@ func (c *Container) initWeb() {
 
 // initCache initializes the cache
 func (c *Container) initCache() {
-	c.cacheClient = redis.NewClient(&redis.Options{
-		Addr:     fmt.Sprintf("%s:%d", c.Config.Cache.Hostname, c.Config.Cache.Port),
-		Password: c.Config.Cache.Password,
-	})
-	if _, err := c.cacheClient.Ping(context.Background()).Result(); err != nil {
-		panic(fmt.Sprintf("failed to connect to cache server: %v", err))
-	}
-	cacheStore := store.NewRedis(c.cacheClient, nil)
-	c.Cache = cache.New(cacheStore)
+	// TODO: Maybe re-enable at a later date
+	// c.cacheClient = redis.NewClient(&redis.Options{
+	// 	Addr:     fmt.Sprintf("%s:%d", c.Config.Cache.Hostname, c.Config.Cache.Port),
+	// 	Password: c.Config.Cache.Password,
+	// })
+	// if _, err := c.cacheClient.Ping(context.Background()).Result(); err != nil {
+	// 	panic(fmt.Sprintf("failed to connect to cache server: %v", err))
+	// }
+	// cacheStore := store.NewRedis(c.cacheClient, nil)
+	// c.Cache = cache.New(cacheStore)
 }
 
 // initDatabase initializes the database
