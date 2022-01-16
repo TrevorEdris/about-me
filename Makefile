@@ -109,11 +109,7 @@ deploy_lambda: publish ## Deploy the application to AWS Lambda
 	@deploy/lambda/deploy
 
 # ----------------------------[ Release ]----------------------------
-
-.PHONY: beanstalk
-beanstalk: finalize copy-binary
-	cp api deploy/beanstalk/
-	cd deploy/beanstalk && zip about-me.zip ./* && mv about-me.zip ../..
+# TODO
 
 # -----------------------------[ Other ] ----------------------------
 
