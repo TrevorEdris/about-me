@@ -4,3 +4,5 @@
 /.blackbox/secring.gpg
 /secrets/config.env
 /tmp
+/vendor
+/api

@@ -1,4 +1,5 @@
 SHELL ?= /bin/bash
+export REGISTRY ?= ${DOCKER_REGISTRY}
 export IMAGEORG ?= tedris
 export IMAGE ?= about-me
 export VERSION ?= $(shell printf "`./tools/version`${VERSION_SUFFIX}")
@@ -49,6 +50,10 @@ dev-down: ## Bring down the live-reloading application
 dev-logs: ## Connect to the logs of the live-reloading application
 	docker-compose -f docker-compose.dev.yml logs -f api
 
+.PHONY: run
+run: finalize
+	@docker run -d -P 8000:8000 ${IMAGEORG}/${IMAGE}:${VERSION}
+
 # -----------------------------[ Build ]-----------------------------
 
 .PHONY: build
@@ -83,7 +88,8 @@ finalize: test ## Build, test, and tag the docker container with the finalized t
 
 .PHONY: publish_only
 publish_only: ## Push the tagged docker image to the docker registry
-	@docker push ${IMAGEORG}/${IMAGE}:${VERSION}
+	@docker tag ${IMAGEORG}/${IMAGE}:${VERSION} ${REGISTRY}${IMAGEORG}/${IMAGE}:${VERSION}
+	@docker push ${REGISTRY}${IMAGEORG}/${IMAGE}:${VERSION}
 
 .PHONY: publish
 publish: finalize publish_only ## Finalize and publish the docker container
@@ -103,14 +109,18 @@ deploy_lambda: publish ## Deploy the application to AWS Lambda
 	@deploy/lambda/deploy
 
 # ----------------------------[ Release ]----------------------------
-# TODO
+
+.PHONY: beanstalk
+beanstalk: finalize copy-binary
+	cp api deploy/beanstalk/
+	cd deploy/beanstalk && zip about-me.zip ./* && mv about-me.zip ../..
 
 # -----------------------------[ Other ] ----------------------------
 
 .PHONY: copy-binary
 copy-binary: build ## Create a temporary container based on the "-build" image and copy the binary out of the container
 	@docker create --name about-me-${GIT_HASH} tedris/about-me-build:${VERSION}
-	@docker cp about-me-${GIT_HASH}:/go/src/github.com/TrevorEdris/about-me/api ./api
+	@docker cp about-me-${GIT_HASH}:/app/api ./api
 	@docker rm about-me-${GIT_HASH}
 
 .PHONY: db

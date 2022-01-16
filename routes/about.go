@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/TrevorEdris/about-me/controller"
+	"github.com/TrevorEdris/about-me/embedded"
 
 	"github.com/labstack/echo/v4"
 )
@@ -102,12 +103,12 @@ func (c *About) Get(ctx echo.Context) error {
 <br>
 <br>
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/150px-Amazon_Web_Services_Logo.svg.png" alt="AWS" />`,
-		newImg(imgPathS3, "S3").HTML,
-		newImg(imgPathEC2, "Batch").HTML,
-		newImg(imgPathCloudWatch, "CloudWatch").HTML,
-		newImg(imgPathDynamoDB, "DynamoDB").HTML,
-		newImg(imgPathRDS, "RDS").HTML,
-		newImg(imgPathElastiCache, "ElastiCache").HTML)
+		embedded.NewImg(imgPathS3, "S3").HTML,
+		embedded.NewImg(imgPathEC2, "Batch").HTML,
+		embedded.NewImg(imgPathCloudWatch, "CloudWatch").HTML,
+		embedded.NewImg(imgPathDynamoDB, "DynamoDB").HTML,
+		embedded.NewImg(imgPathRDS, "RDS").HTML,
+		embedded.NewImg(imgPathElastiCache, "ElastiCache").HTML)
 
 	// A simple example of how the Data field can contain anything you want to send to the templates
 	// even though you wouldn't normally send markup like this
@@ -130,7 +131,7 @@ func (c *About) Get(ctx echo.Context) error {
 		TechnologyTabs: []AboutTab{
 			{
 				Title: "Go",
-				Body:  template.HTML(fmt.Sprintf(`The <a href="https://go.dev/">"Go"</a> programming language. I use this language daily in my career and it is my "Go"-to choice of languages for side projects.<br><br>%s`, newImg(imgPathGopher, "Gopher").HTML)),
+				Body:  template.HTML(fmt.Sprintf(`The <a href="https://go.dev/">"Go"</a> programming language. I use this language daily in my career and it is my "Go"-to choice of languages for side projects.<br><br>%s`, embedded.NewImg(imgPathGopher, "Gopher").HTML)),
 			},
 			{
 				Title: "AWS",

@@ -10,6 +10,7 @@ import (
 	"github.com/labstack/gommon/log"
 
 	"github.com/TrevorEdris/about-me/config"
+	"github.com/TrevorEdris/about-me/embedded"
 	"github.com/TrevorEdris/about-me/ent"
 	_ "github.com/TrevorEdris/about-me/ent/runtime"
 )
@@ -45,7 +46,8 @@ type Container struct {
 	Auth *AuthClient
 
 	// TemplateRenderer stores a service to easily render and cache templates
-	TemplateRenderer *TemplateRenderer
+	//TemplateRenderer *TemplateRenderer
+	TemplateRenderer *embedded.TemplateRenderer
 }
 
 // NewContainer creates and initializes a new Container
@@ -181,7 +183,7 @@ func (c *Container) initAuth() {
 
 // initTemplateRenderer initializes the template renderer
 func (c *Container) initTemplateRenderer() {
-	c.TemplateRenderer = NewTemplateRenderer(c.Config)
+	c.TemplateRenderer = embedded.NewTemplateRenderer(c.Config)
 }
 
 // initMail initialize the mail client
