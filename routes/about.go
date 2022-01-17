@@ -1,26 +1,13 @@
 package routes
 
 import (
-	"encoding/base64"
 	"fmt"
 	"html/template"
-	"io/ioutil"
-	"net/http"
 
 	"github.com/TrevorEdris/about-me/controller"
 	"github.com/TrevorEdris/about-me/embedded"
 
 	"github.com/labstack/echo/v4"
-)
-
-const (
-	imgPathGopher      = "static/gopher.png"
-	imgPathRDS         = "static/Res_Amazon-Aurora_Amazon-RDS-Instance_48_Dark.png"
-	imgPathCloudWatch  = "static/Res_Amazon-CloudWatch_Alarm_48_Dark.png"
-	imgPathDynamoDB    = "static/Res_Amazon-DynamoDB_Table_48_Dark.png"
-	imgPathEC2         = "static/Res_Amazon-EC2_Instances_48_Dark.png"
-	imgPathElastiCache = "static/Res_Amazon-ElastiCache_ElastiCache-for-Redis_48_Dark.png"
-	imgPathS3          = "static/Res_Amazon-Simple-Storage-Service_S3-Standard_48_Dark.png"
 )
 
 type (
@@ -42,44 +29,7 @@ type (
 		Title string
 		Body  template.HTML
 	}
-
-	img struct {
-		Source         string
-		Alt            string
-		base64Encoding string
-		HTML           string
-	}
 )
-
-var (
-	errImg = img{
-		HTML: "<img src=\"\" alt=\"Error loading image\" />",
-	}
-)
-
-func newImg(source, alt string) img {
-	b, err := ioutil.ReadFile(source)
-	if err != nil {
-		return errImg
-	}
-
-	var b64 string
-	mimeType := http.DetectContentType(b)
-	switch mimeType {
-	case "image/jpeg":
-		b64 = "data:image/jpeg;base64,"
-	case "image/png":
-		b64 = "data:image/png;base64,"
-	}
-	b64 += base64.StdEncoding.EncodeToString(b)
-
-	return img{
-		Source:         source,
-		Alt:            alt,
-		base64Encoding: b64,
-		HTML:           fmt.Sprintf("<img src=\"%s\" alt=\"%s\" />", b64, alt),
-	}
-}
 
 func (c *About) Get(ctx echo.Context) error {
 	page := controller.NewPage(ctx)
@@ -103,12 +53,12 @@ func (c *About) Get(ctx echo.Context) error {
 <br>
 <br>
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/150px-Amazon_Web_Services_Logo.svg.png" alt="AWS" />`,
-		embedded.NewImg(imgPathS3, "S3").HTML,
-		embedded.NewImg(imgPathEC2, "Batch").HTML,
-		embedded.NewImg(imgPathCloudWatch, "CloudWatch").HTML,
-		embedded.NewImg(imgPathDynamoDB, "DynamoDB").HTML,
-		embedded.NewImg(imgPathRDS, "RDS").HTML,
-		embedded.NewImg(imgPathElastiCache, "ElastiCache").HTML)
+		embedded.NewImg(embedded.ImgPathS3, "S3").HTML,
+		embedded.NewImg(embedded.ImgPathEC2, "Batch").HTML,
+		embedded.NewImg(embedded.ImgPathCloudWatch, "CloudWatch").HTML,
+		embedded.NewImg(embedded.ImgPathDynamoDB, "DynamoDB").HTML,
+		embedded.NewImg(embedded.ImgPathRDS, "RDS").HTML,
+		embedded.NewImg(embedded.ImgPathElastiCache, "ElastiCache").HTML)
 
 	// A simple example of how the Data field can contain anything you want to send to the templates
 	// even though you wouldn't normally send markup like this
@@ -117,7 +67,7 @@ func (c *About) Get(ctx echo.Context) error {
 		QualificationTabs: []AboutTab{
 			{
 				Title: "5 Years of Experience",
-				Body:  template.HTML(`I have been programming professionally since June 2017, though I also completed 3 successful internships throughout my time at Purdue University, one of which was Remote during a Fall semester alongside classes.`),
+				Body:  template.HTML(`I have been programming professionally since <strong>June 2017</strong>, though I also completed <strong>3 successful internships</strong> throughout my time at <strong>Purdue University</strong>, one of which was Remote during a Fall semester alongside classes.`),
 			},
 			{
 				Title: "Education",
@@ -125,13 +75,13 @@ func (c *About) Get(ctx echo.Context) error {
 			},
 			{
 				Title: "Soft Skills",
-				Body:  template.HTML(`I take pride in my ability to communicate technical issues to non-technical audiences in a way that is easily understandable. I am able to identify and describe both technical and non-technical requirements for projects. I have a strong preference to follow well-defined standards and practices if they exist and define them when they do not.`),
+				Body:  template.HTML(`I take pride in my ability to <strong>communicate technical topics</strong> to non-technical audiences in a way that is <strong>easily understandable</strong>. I am able to <strong>identify and describe</strong> both technical and non-technical <strong>requirements</strong> for projects. I have a strong preference to follow <strong>well-defined standards and practices</strong> if they exist and define them when they do not.`),
 			},
 		},
 		TechnologyTabs: []AboutTab{
 			{
 				Title: "Go",
-				Body:  template.HTML(fmt.Sprintf(`The <a href="https://go.dev/">"Go"</a> programming language. I use this language daily in my career and it is my "Go"-to choice of languages for side projects.<br><br>%s`, embedded.NewImg(imgPathGopher, "Gopher").HTML)),
+				Body:  template.HTML(fmt.Sprintf(`The <a href="https://go.dev/">"Go"</a> programming language. I use this language daily in my career and it is my "Go"-to choice of languages for side projects.<br><br>%s`, embedded.NewImg(embedded.ImgPathGopher, "Gopher").HTML)),
 			},
 			{
 				Title: "AWS",
@@ -153,7 +103,7 @@ func (c *About) Get(ctx echo.Context) error {
 		InterestTabs: []AboutTab{
 			{
 				Title: "Backend Development",
-				Body:  template.HTML(`Aside from this website, all of my experience is with Backend Development. This is where I prefer to focus my time and effort as well. <img src="https://coursereport-production.imgix.net/rich/rich_files/rich_files/6262/s1200/front-20end-20development-20vs-20back-20end-20development-20infographic-20-20course-20report.png?auto=compress%2Cformat&amp;w=1446&amp;h=" />`),
+				Body:  template.HTML(`Aside from this website (most of which is written in Go anyways), all of my experience is with Backend Development. This is where I prefer to focus my time and effort as well.`),
 			},
 			{
 				Title: "RESTful APIs",
