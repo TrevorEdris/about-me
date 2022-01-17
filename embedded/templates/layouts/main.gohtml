@@ -27,12 +27,25 @@
                         <ul class="menu-list">
                             <li>{{link (call .ToURL "about") "About" .Path}}</li>
                             <li>{{link (call .ToURL "contact") "Contact" .Path}}</li>
+                            <li>{{link (call .ToURL "resume") "Resume" .Path}}</li>
                         </ul>
 
                         <p class="menu-label">Projects</p>
                     </aside>
                 </div>
 
+                {{- if .Tall }}
+                <div class="column is-10" style="height:95vh;">
+                    <div class="box" style="height:92vh;">
+                        {{- if .Title}}
+                            <h1 class="title">{{.Title}}</h1>
+                        {{- end}}
+
+                        {{template "messages" .}}
+                        {{template "content" .}}
+                    </div>
+                </div>
+                {{- else}}
                 <div class="column is-10">
                     <div class="box">
                         {{- if .Title}}
@@ -43,6 +56,8 @@
                         {{template "content" .}}
                     </div>
                 </div>
+                {{- end }}
+
             </div>
         </div>
 

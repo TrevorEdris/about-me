@@ -76,10 +76,13 @@ func navRoutes(c *services.Container, g *echo.Group, ctr controller.Controller) 
 	contact := Contact{Controller: ctr}
 	g.GET("/contact", contact.Get).Name = "contact"
 	g.POST("/contact", contact.Post).Name = "contact.post"
+
+	resume := Resume{Controller: ctr}
+	g.GET("/resume", resume.Get).Name = "resume"
 }
 
 func fileServerRoutes(c *services.Container, g *echo.Group, ctr controller.Controller) {
 	contentHandler := echo.WrapHandler(http.FileServer(http.FS(embedded.ResumeFS)))
-	contentRewrite := echomw.Rewrite(map[string]string{"/resume": embedded.ResumePath})
-	g.GET("/resume", contentHandler, contentRewrite).Name = "resume"
+	contentRewrite := echomw.Rewrite(map[string]string{"/downloadresume": embedded.ResumePath})
+	g.GET("/downloadresume", contentHandler, contentRewrite).Name = "downloadresume"
 }
