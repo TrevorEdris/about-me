@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/TrevorEdris/about-me/config"
+	"github.com/TrevorEdris/about-me/embedded"
 
 	"github.com/labstack/echo/v4"
 	gomail "gopkg.in/mail.v2"
@@ -19,11 +20,12 @@ type MailClient struct {
 	config *config.Config
 
 	// templates stores the template renderer
-	templates *TemplateRenderer
+	//templates *TemplateRenderer
+	templates *embedded.TemplateRenderer
 }
 
 // NewMailClient creates a new MailClient
-func NewMailClient(cfg *config.Config, templates *TemplateRenderer) (*MailClient, error) {
+func NewMailClient(cfg *config.Config, templates *embedded.TemplateRenderer) (*MailClient, error) {
 	return &MailClient{
 		config:    cfg,
 		templates: templates,

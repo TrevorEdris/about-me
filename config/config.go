@@ -67,7 +67,7 @@ type (
 
 	// AppConfig stores application configuration
 	AppConfig struct {
-		Name        string      `env:"APP_NAME,default=Pagoda"`
+		Name        string      `env:"APP_NAME,default=AboutMe"`
 		Environment Environment `env:"APP_ENVIRONMENT,default=local"`
 		// THIS MUST BE OVERRIDDEN ON ANY LIVE ENVIRONMENTS
 		EncryptionKey string        `env:"APP_ENCRYPTION_KEY,default=?E(G+KbPeShVmYq3t6w9z$C&F)J@McQf"`
