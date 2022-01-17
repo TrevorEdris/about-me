@@ -42,6 +42,10 @@ type Page struct {
 	// URL stores the URL of the current request
 	URL string
 
+	// Tall indicates if this page should have special height styling applied
+	// I'm not a web dev and idk how to do this right, so this is a hack
+	Tall bool
+
 	// Data stores whatever additional data that needs to be passed to the templates.
 	// This is what the controller uses to pass the content of the page.
 	Data interface{}

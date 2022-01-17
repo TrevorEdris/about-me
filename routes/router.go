@@ -5,6 +5,7 @@ import (
 
 	"github.com/TrevorEdris/about-me/config"
 	"github.com/TrevorEdris/about-me/controller"
+	"github.com/TrevorEdris/about-me/embedded"
 	"github.com/TrevorEdris/about-me/middleware"
 	"github.com/TrevorEdris/about-me/services"
 
@@ -62,6 +63,7 @@ func BuildRouter(c *services.Container) {
 
 	// Example routes
 	navRoutes(c, g, ctr)
+	fileServerRoutes(c, g, ctr)
 }
 
 func navRoutes(c *services.Container, g *echo.Group, ctr controller.Controller) {
@@ -74,4 +76,13 @@ func navRoutes(c *services.Container, g *echo.Group, ctr controller.Controller) 
 	contact := Contact{Controller: ctr}
 	g.GET("/contact", contact.Get).Name = "contact"
 	g.POST("/contact", contact.Post).Name = "contact.post"
+
+	resume := Resume{Controller: ctr}
+	g.GET("/resume", resume.Get).Name = "resume"
+}
+
+func fileServerRoutes(c *services.Container, g *echo.Group, ctr controller.Controller) {
+	contentHandler := echo.WrapHandler(http.FileServer(http.FS(embedded.ResumeFS)))
+	contentRewrite := echomw.Rewrite(map[string]string{"/downloadresume": embedded.ResumePath})
+	g.GET("/downloadresume", contentHandler, contentRewrite).Name = "downloadresume"
 }
