@@ -7,6 +7,16 @@ import (
 	"net/http"
 )
 
+const (
+	ImgPathGopher      = "static/gopher.png"
+	ImgPathRDS         = "static/Res_Amazon-Aurora_Amazon-RDS-Instance_48_Dark.png"
+	ImgPathCloudWatch  = "static/Res_Amazon-CloudWatch_Alarm_48_Dark.png"
+	ImgPathDynamoDB    = "static/Res_Amazon-DynamoDB_Table_48_Dark.png"
+	ImgPathEC2         = "static/Res_Amazon-EC2_Instances_48_Dark.png"
+	ImgPathElastiCache = "static/Res_Amazon-ElastiCache_ElastiCache-for-Redis_48_Dark.png"
+	ImgPathS3          = "static/Res_Amazon-Simple-Storage-Service_S3-Standard_48_Dark.png"
+)
+
 var (
 	//go:embed static/*
 	staticFS embed.FS
