@@ -23,14 +23,12 @@
             <div class="columns">
                 <div class="column is-2">
                     <aside class="menu" hx-boost="true">
-                        <p class="menu-label">General</p>
                         <ul class="menu-list">
                             <li>{{link (call .ToURL "about") "About" .Path}}</li>
-                            <li>{{link (call .ToURL "contact") "Contact" .Path}}</li>
+                            <li>{{link (call .ToURL "projects") "Projects" .Path}}</li>
                             <li>{{link (call .ToURL "resume") "Resume" .Path}}</li>
+                            <li>{{link (call .ToURL "contact") "Contact" .Path}}</li>
                         </ul>
-
-                        <p class="menu-label">Projects</p>
                     </aside>
                 </div>
 

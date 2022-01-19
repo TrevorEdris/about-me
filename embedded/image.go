@@ -15,6 +15,9 @@ const (
 	ImgPathEC2         = "static/Res_Amazon-EC2_Instances_48_Dark.png"
 	ImgPathElastiCache = "static/Res_Amazon-ElastiCache_ElastiCache-for-Redis_48_Dark.png"
 	ImgPathS3          = "static/Res_Amazon-Simple-Storage-Service_S3-Standard_48_Dark.png"
+	ImgPathMyFace      = "static/my_face.png"
+	ImgPathYTLogo      = "static/youtube_logo.png"
+	ImgPathTwitterLogo = "static/twitter_logo.png"
 )
 
 var (
@@ -26,7 +29,7 @@ type (
 	Image struct {
 		Source         string
 		Alt            string
-		base64Encoding string
+		Base64Encoding string
 		HTML           string
 	}
 )
@@ -56,7 +59,7 @@ func NewImg(source, alt string) Image {
 	return Image{
 		Source:         source,
 		Alt:            alt,
-		base64Encoding: b64,
+		Base64Encoding: b64,
 		HTML:           fmt.Sprintf("<img src=\"%s\" alt=\"%s\" />", b64, alt),
 	}
 }

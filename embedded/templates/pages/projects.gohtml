@@ -1,0 +1,74 @@
+{{define "content"}}
+    {{- if not (eq .HTMX.Request.Target "posts")}}
+        {{template "top-content" .}}
+    {{- end}}
+
+    {{template "posts" .}}
+{{end}}
+
+{{define "github-card"}}
+<div class="github-card is-group-centered" data-github="TrevorEdris" data-width="400" data-height="318" data-theme="medium"></div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+{{end}}
+
+{{define "top-content"}}
+    <section class="section">
+        <h1 class="title">Projects</h1>
+        <h2 class="subtitle">
+            The following is a list of a few side-projects I have worked on. A majority of my time is spent
+            on projects in private repos for work, but here are some notable public projects.
+        </h2>
+        {{template "github-card" .}}
+    </section>
+{{end}}
+
+{{define "posts"}}
+    <div id="posts">
+        {{- range .Data}}
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        {{.Image}}
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>{{.Title}}</strong>
+                            <br>
+                            <i>Status - {{.Status}}</i>
+                            <br>
+                            {{.Body}}
+                            <br>
+                            {{- range .Notes}}
+                                <ul>
+                                    <li>{{.}}</li>
+                                </ul>
+                            {{- end}}
+                            <br>
+                            {{.Link}}
+                        <p>
+                    </div>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        {{.Card}}
+                    </div>
+                </div>
+            </article>
+        {{- end}}
+
+        <div class="field is-grouped is-grouped-centered">
+            {{- if not $.Pager.IsBeginning}}
+                <p class="control">
+                    <button class="button is-primary" hx-swap="outerHTML" hx-get="/projects?page={{sub $.Pager.Page 1}}" hx-target="#posts">Previous page</button>
+                </p>
+            {{- end}}
+            {{- if not $.Pager.IsEnd}}
+                <p class="control">
+                    <button class="button is-primary" hx-swap="outerHTML" hx-get="/projects?page={{add $.Pager.Page 1}}" hx-target="#posts">Next page</button>
+                </p>
+            {{- end}}
+        </div>
+    </div>
+{{end}}

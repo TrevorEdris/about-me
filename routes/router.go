@@ -79,6 +79,9 @@ func navRoutes(c *services.Container, g *echo.Group, ctr controller.Controller) 
 
 	resume := Resume{Controller: ctr}
 	g.GET("/resume", resume.Get).Name = "resume"
+
+	projects := Projects{Controller: ctr}
+	g.GET("/projects", projects.Get).Name = "projects"
 }
 
 func fileServerRoutes(c *services.Container, g *echo.Group, ctr controller.Controller) {
