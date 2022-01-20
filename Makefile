@@ -10,7 +10,7 @@ clear_files=$(shell blackbox_list_files)
 encrypt_files=$(patsubst %,%.gpg,${clear_files})
 
 .PHONY: all
-all: reset deploy_local
+all: dev
 
 # -------------------------[ General Tools ]-------------------------
 
@@ -118,37 +118,3 @@ copy-binary: build ## Create a temporary container based on the "-build" image a
 	@docker create --name about-me-${GIT_HASH} tedris/about-me-build:${VERSION}
 	@docker cp about-me-${GIT_HASH}:/app/api ./api
 	@docker rm about-me-${GIT_HASH}
-
-.PHONY: db
-db: ## Connect to the primary database
-	 psql postgresql://admin:admin@localhost:5432/app
-
-.PHONY: db-test
-db-test: ## Connect to the test database
-	 psql postgresql://admin:admin@localhost:5432/app_test
-
-.PHONY: cache
-cache: ## Connect to the cache
-	 redis-cli
-
-.PHONY: ent-install
-ent-install: ## Install Ent code-generation module
-	go get -d entgo.io/ent/cmd/ent
-
-.PHONY: ent-gen
-ent-gen: ## Generate Ent code
-	go generate ./ent
-
-.PHONY: ent-new
-ent-new: ## Create a new Ent entity
-	go run entgo.io/ent/cmd/ent init $(name)
-
-.PHONY: up
-up: ## Start the Docker containers
-	docker-compose up -d
-	sleep 3
-
-.PHONY: reset
-reset: ## Rebuild Docker containers to wipe all data
-	docker-compose down
-	make up
