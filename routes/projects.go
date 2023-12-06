@@ -53,6 +53,30 @@ func (c *Projects) fetchProjects(pager *controller.Pager) []Project {
 			},
 		},
 		{
+			Title:  "Go CSV",
+			Body:   "A Go project to generate a CSV full of random, but controllable data",
+			Status: "Operational",
+			Image:  template.HTML(embedded.NewImg(embedded.ImgPathMyFace, "Trevor Edris").HTML),
+			Link:   template.HTML(embedded.NewLink("https://github.com/TrevorEdris/go-csv", "Github Repo").HTML),
+			Card:   template.HTML(embedded.NewGHRepoCard("TrevorEdris", "go-csv").HTML),
+			Notes: []string{
+				"Address reported issues",
+				"Host as a service online",
+				"More seamless mocks",
+			},
+		},
+		{
+			Title:  "Banner",
+			Body:   "A simple Go project to generate a banner of text",
+			Status: "Operational",
+			Image:  template.HTML(embedded.NewImg(embedded.ImgPathMyFace, "Trevor Edris").HTML),
+			Link:   template.HTML(embedded.NewLink("https://github.com/TrevorEdris/banner", "Github Repo").HTML),
+			Card:   template.HTML(embedded.NewGHRepoCard("TrevorEdris", "banner").HTML),
+			Notes: []string{
+				"Address reported issues",
+			},
+		},
+		{
 			Title:  "Youtube Dependency Graph",
 			Body:   "An API with (eventually) a front-end to display a dependency graph of Youtube videos based on the video links within the description.",
 			Status: "Locally Deployable",
@@ -63,18 +87,6 @@ func (c *Projects) fetchProjects(pager *controller.Pager) []Project {
 				"Front-end will be created using a simple React app as well as the D3.js library to visualize the graph",
 				"Graph data structure adheres to the JSON Graph Format v2",
 				"(Planned) Persist graph into storage to avoid querying full structure",
-			},
-		},
-		{
-			Title:  "Markovify Twitter",
-			Body:   "A simple Python project to create tweets based on a Markov chain generated from the tweets of the given Twitter handles.",
-			Status: "Out of date",
-			Image:  template.HTML(embedded.NewImg(embedded.ImgPathTwitterLogo, "Twitter logo").HTML),
-			Link:   template.HTML(embedded.NewLink("https://github.com/TrevorEdris/markovify-twitter", "Github Repo").HTML),
-			Card:   template.HTML(embedded.NewGHRepoCard("TrevorEdris", "markovify-twitter").HTML),
-			Notes: []string{
-				"(Planned) Host this project as an API",
-				"(Planned) Create a twitter bot, allowing users to `@<bot_name> [@handle...]`, where the bot will create a tweet",
 			},
 		},
 	}

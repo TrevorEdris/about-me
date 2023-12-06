@@ -66,7 +66,7 @@ func (c *About) Get(ctx echo.Context) error {
 		ShowCacheWarning: false,
 		QualificationTabs: []AboutTab{
 			{
-				Title: "5 Years of Experience",
+				Title: "6+ Years of Experience",
 				Body:  template.HTML(`I have been programming professionally since <strong>June 2017</strong>, though I also completed <strong>3 successful internships</strong> throughout my time at <strong>Purdue University</strong>, one of which was Remote during a Fall semester alongside classes.`),
 			},
 			{
