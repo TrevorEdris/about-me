@@ -1,6 +1,6 @@
 module github.com/TrevorEdris/about-me
 
-go 1.17
+go 1.21.3
 
 require (
 	entgo.io/ent v0.9.1
